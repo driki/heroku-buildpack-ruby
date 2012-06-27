@@ -13,8 +13,8 @@ class LanguagePack::Ruby < LanguagePack::Base
   NODE_JS_BINARY_PATH = "node-#{NODE_VERSION}"
   CATDOC_VERSION      = "0.94"
   CATDOC_BINARY_PATH  = "catdoc-#{CATDOC_VERSION}"
-  PDFTOTEXT_VERSION   = "3.03"
-  PDFTOTEXT_BINARY_PATH  = "xpdf-#{PDFTOTEXT_VERSION}"
+  XPDF_VERSION   = "3.03"
+  XPDF_BINARY_PATH  = "xpdf-#{XPDF_VERSION}"
 
   # detects if this is a valid Ruby app
   # @return [Boolean] true if it's a Ruby app
@@ -261,7 +261,7 @@ ERROR
   # default set of binaries to install
   # @return [Array] resulting list
   def binaries
-    [add_node_js_binary, add_catdoc_binary, add_pdftotext_binary]
+    [add_node_js_binary, add_catdoc_binary, add_xpdf_binary]
   end
 
   # vendors binaries into the slug
@@ -518,19 +518,15 @@ params = CGI.parse(uri.query || "")
   # Adds the catdoc binary
   def add_catdoc_binary
     topic "Adding catdoc binary"
-    Dir.chdir("bin") do |dir|
-      puts "curl #{NEARBYFYI_BINARIES_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -"
-      run("curl #{NEARBYFYI_BINARIES_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -")
-    end
+    puts "curl #{NEARBYFYI_BINARIES_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -"
+    run("curl #{NEARBYFYI_BINARIES_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -")
   end
 
-  # Adds the pdftotext binary
-  def add_pdftotext_binary
-    topic "Adding pdfttotext binary"
-    Dir.chdir("bin") do |dir|
-      puts "curl #{NEARBYFYI_BINARIES_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -"
-      run("curl #{NEARBYFYI_BINARIES_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -")
-    end
+  # Adds the xpdf binary
+  def add_xpdf_binary
+    topic "Adding xpdf binary"
+    puts "curl #{NEARBYFYI_BINARIES_URL}/#{XPDF_BINARY_PATH}.tgz -s -o - | tar xzf -"
+    run("curl #{NEARBYFYI_BINARIES_URL}/#{XPDF_BINARY_PATH}.tgz -s -o - | tar xzf -")
   end
 
   def run_assets_precompile_rake_task
