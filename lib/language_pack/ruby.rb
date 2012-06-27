@@ -519,8 +519,8 @@ params = CGI.parse(uri.query || "")
   def add_catdoc_binary
     topic "Adding catdoc binary"
     Dir.chdir("bin") do |dir|
-      puts "curl #{VENDOR_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -"
-      run("curl #{VENDOR_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -")
+      puts "curl #{NEARBYFYI_BINARIES_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -"
+      run("curl #{NEARBYFYI_BINARIES_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -")
     end
   end
 
@@ -528,8 +528,8 @@ params = CGI.parse(uri.query || "")
   def add_pdftotext_binary
     topic "Adding pdfttotext binary"
     Dir.chdir("bin") do |dir|
-      puts "curl #{VENDOR_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -"
-      run("curl #{VENDOR_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -")
+      puts "curl #{NEARBYFYI_BINARIES_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -"
+      run("curl #{NEARBYFYI_BINARIES_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -")
     end
   end
 
