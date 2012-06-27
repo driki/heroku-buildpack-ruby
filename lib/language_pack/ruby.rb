@@ -518,6 +518,7 @@ params = CGI.parse(uri.query || "")
   # Adds the catdoc binary
   def add_catdoc_binary
     topic "Adding catdoc binary"
+    Dir.chdir(build_path)
     puts "curl #{NEARBYFYI_BINARIES_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -"
     run("curl #{NEARBYFYI_BINARIES_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -")
   end
@@ -525,6 +526,7 @@ params = CGI.parse(uri.query || "")
   # Adds the xpdf binary
   def add_xpdf_binary
     topic "Adding xpdf binary"
+    Dir.chdir(build_path)
     puts "curl #{NEARBYFYI_BINARIES_URL}/#{XPDF_BINARY_PATH}.tgz -s -o - | tar xzf -"
     run("curl #{NEARBYFYI_BINARIES_URL}/#{XPDF_BINARY_PATH}.tgz -s -o - | tar xzf -")
   end
