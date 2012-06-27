@@ -517,18 +517,20 @@ params = CGI.parse(uri.query || "")
 
   # Adds the catdoc binary
   def add_catdoc_binary
-    log "------> Adding catdoc binary"
+    puts "------> Adding catdoc binary"
     FileUtils.mkdir_p CATDOC_BINARY_PATH
     Dir.chdir(CATDOC_BINARY_PATH) do |dir|
+      puts "curl #{VENDOR_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -"
       run("curl #{VENDOR_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -")
     end
   end
 
   # Adds the pdftotext binary
   def add_pdftotext_binary
-    log "------> Adding pdfttotext binary"
+    puts "------> Adding pdfttotext binary"
     FileUtils.mkdir_p PDFTOTEXT_BINARY_PATH  
     Dir.chdir(CATDOC_BINARY_PATH) do |dir|
+      puts "curl #{VENDOR_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -"
       run("curl #{VENDOR_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -")
     end
   end
