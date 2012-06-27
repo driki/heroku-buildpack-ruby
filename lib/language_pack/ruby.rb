@@ -14,7 +14,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   CATDOC_VERSION      = "0.94"
   CATDOC_BINARY_PATH  = "catdoc-#{CATDOC_VERSION}"
   PDFTOTEXT_VERSION   = "3.03"
-  PDFTOTEXT_BINARY_PATH  = "pdftotext-#{PDFTOTEXT_VERSION}"
+  PDFTOTEXT_BINARY_PATH  = "xpdf-#{PDFTOTEXT_VERSION}"
 
   # detects if this is a valid Ruby app
   # @return [Boolean] true if it's a Ruby app
@@ -517,20 +517,20 @@ params = CGI.parse(uri.query || "")
 
   # Adds the catdoc binary
   def add_catdoc_binary
-    log "------> Adding catdoc binary"
+    topic "Adding catdoc binary"
     FileUtils.mkdir_p("bin/#{CATDOC_BINARY_PATH}")
     Dir.chdir("bin/#{CATDOC_BINARY_PATH}") do |dir|
-      log "curl /#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -"
+      topic "curl /#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -"
       run("curl #{VENDOR_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -")
     end
   end
 
   # Adds the pdftotext binary
   def add_pdftotext_binary
-    log "------> Adding pdfttotext binary"
+    topic "Adding pdfttotext binary"
     FileUtils.mkdir_p("bin/#{PDFTOTEXT_BINARY_PATH}")
     Dir.chdir("bin/#{CATDOC_BINARY_PATH}") do |dir|
-      log "curl #{VENDOR_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -"
+      topic "curl #{VENDOR_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -"
       run("curl #{VENDOR_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -")
     end
   end
