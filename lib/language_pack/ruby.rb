@@ -11,6 +11,10 @@ class LanguagePack::Ruby < LanguagePack::Base
   BUNDLER_GEM_PATH    = "bundler-#{BUNDLER_VERSION}"
   NODE_VERSION        = "0.4.7"
   NODE_JS_BINARY_PATH = "node-#{NODE_VERSION}"
+  CATDOC_VERSION      = "0.94"
+  CATDOC_BINARY_PATH  = "catdoc-#{CATDOC_VERSION}"
+  PDFTOTEXT_VERSION   = "3.03"
+  PDFTOTEXT_BINARY_PATH  = "pdftotext-#{PDFTOTEXT_VERSION}"
 
   # detects if this is a valid Ruby app
   # @return [Boolean] true if it's a Ruby app
@@ -257,7 +261,7 @@ ERROR
   # default set of binaries to install
   # @return [Array] resulting list
   def binaries
-    add_node_js_binary
+    [add_node_js_binary, add_catdoc_binary, add_pdftotext_binary]
   end
 
   # vendors binaries into the slug
@@ -509,6 +513,24 @@ params = CGI.parse(uri.query || "")
   # @return [Array] the node.js binary path if we need it or an empty Array
   def add_node_js_binary
     gem_is_bundled?('execjs') ? [NODE_JS_BINARY_PATH] : []
+  end
+
+  # Adds the catdoc binary
+  def add_catdoc_binary
+    log "------> Adding catdoc binary"
+    FileUtils.mkdir_p dir  
+      Dir.chdir(dir) do |dir|
+      run("curl #{VENDOR_URL}/#{CATDOC_BINARY_PATH}.tgz -s -o - | tar xzf -")
+    end
+  end
+
+  # Adds the pdftotext binary
+  def add_pdftotext_binary
+    log "------> Adding pdfttotext binary"
+    FileUtils.mkdir_p dir  
+      Dir.chdir(dir) do |dir|
+      run("curl #{VENDOR_URL}/#{PDFTOTEXT_BINARY_PATH}.tgz -s -o - | tar xzf -")
+    end
   end
 
   def run_assets_precompile_rake_task
